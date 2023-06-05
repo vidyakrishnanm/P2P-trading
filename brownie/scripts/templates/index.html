@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Blockchain</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="/static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/static/vendor/DataTables/css/datatables.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="/static/css/custom.css" rel="stylesheet">
+
+</head>
+
+<body style="background-color:rgba(27, 39, 114, 0.513);">
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">Energy Trading</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+        aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="/">Deploy
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/add_order">Orders </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/buyer">Buyer</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/seller">Seller</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!--  -->
+  <div class="container">
+
+    <div class="row">
+      <div class="col-lg-12 text-center">
+        <input type="button" id="deploy" class="btn btn-primary btn-lg" value="Deploy smart contract">
+      </div>
+    </div>
+
+    <br>
+
+    <div class="row" id="warning" style="display:none">
+      <div class="col-sm-12">
+        <div class="alert alert-danger" role="alert">
+          ALERT
+          <ul>
+            <li>Smart contract deployed succesfully</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 text-center">
+
+
+        <div class="card-body">
+          <h4 class="card-title" style="color:rgb(48, 10, 4);">Confirm Delivery</h4>
+          <!--  <p class="card-text" style="color:rgb(48, 10, 4);">Enter offer id and Click 'Confirm'
+            to confirm energy transfer</p>
+           <input type="button" id="add_order" class="btn btn-primary btn-lg" value="Add order">-->
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <br>
+  <div class="container alert alert-secondary">
+    <form id="transaction_form1">
+
+
+      <div class="row">
+        <label class="col-sm-2" style="font-size:20px" style="color:rgb(93, 58, 52);">Offer ID:</label>
+        <div class="col-sm-10">
+          <input type="text" name="offer_id_a" id="offer_id_a" rows="2" class="form-control">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-12 text-center">
+          <input type="button" id="confirm_order" class="btn btn-primary btn-lg" value="Confirm">
+        </div>
+      </div>
+
+      <br>
+
+      <div class="row" id="warning1" style="display:none">
+        <div class="col-sm-12">
+          <div class="alert alert-danger" role="alert">
+            Success!
+            <ul>
+              <li>Energy delivered to buyer; payment confirmed to seller</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 text-center">
+
+          <div class="card-body">
+            <h4 class="card-title" style="color:rgb(48, 10, 4);">Offer details</h4>
+            <p class="card-text" style="color:rgb(48, 10, 4);">Enter offer id and Click 'Details' to know the
+              status of the order</p>
+            <!--  <input type="button" id="add_order" class="btn btn-primary btn-lg" value="Add order">-->
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <br>
+    <div class="container alert alert-secondary">
+      <form id="transaction_form">
+
+
+        <div class="row">
+          <label class="col-sm-2" style="font-size:20px" style="color:rgb(93, 58, 52);">Offer ID:</label>
+          <div class="col-sm-10">
+            <input type="text" name="offer_id" id="offer_id" rows="2" class="form-control">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-12 text-center">
+            <input type="button" id="details" class="btn btn-primary btn-lg" value="Details">
+          </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal modal-alert fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="basicModal"
+          aria-hidden="true">
+          <div class="modal-dialog">
+
+            <div class="modal-content">
+
+              <div class="modal-header">
+                <div class="modal-title col-md-10" style="color:gray;">Order confirmed, to proceed with payment click
+                  proceed</div>
+                <button type="button" class="close col-md-2" data-dismiss="modal" aria-hidden="true">&times;</button>
+              </div>
+
+              <div class="modal-body">
+
+                <form id="confirmation_transaction_form">
+
+                  <div class="row">
+                    <label class="col-sm-12" style="color:Tomato;">ID</label>
+                    <div class="col-sm-12">
+                      <input type="text" name="final_id" id="final_id" rows="2" class="form-control" readonly>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <label class="col-sm-12" style="color:Tomato;">Seller Address</label>
+                    <div class="col-sm-12">
+                      <input type="text" name="seller_address" id="seller_address" rows="2" class="form-control"
+                        readonly>
+                    </div>
+
+                  </div>
+                  <div class="row">
+                    <label class="col-sm-12" style="color:Tomato;">Buyer Address</label>
+                    <div class="col-sm-12">
+                      <input type="text" name="buyer_address" id="buyer_address" rows="2" class="form-control" readonly>
+                    </div>
+
+                  </div>
+                  <div class="row">
+                    <label class="col-sm-12" style="color:Tomato;">Energy</label>
+                    <div class="col-sm-12">
+                      <input type="text" name="energy" id="energy" rows="2" class="form-control" readonly>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <label class="col-sm-12" style="color:Tomato;">Price</label>
+                    <div class="col-sm-12">
+                      <input type="text" name="price" id="price" rows="2" class="form-control" readonly>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <label class="col-sm-12" style="color:Tomato;">Offered Time</label>
+                    <div class="col-sm-12">
+                      <input type="text" name="offered_time" id="offered_time" rows="2" class="form-control" readonly>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <label class="col-sm-12" style="color:Tomato;">Paid Time</label>
+                    <div class="col-sm-12">
+                      <input type="text" name="paid_time" id="paid_time" rows="2" class="form-control" readonly>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <label class="col-sm-12" style="color:Tomato;">Buyer Confirm</label>
+                    <div class="col-sm-12">
+                      <input type="text" name="confirm_buyer" id="confirm_buyer" rows="2" class="form-control" readonly>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <label class="col-sm-12" style="color:Tomato;">Seller Confirm</label>
+                    <div class="col-sm-12">
+                      <input type="text" name="confirm_seller" id="confirm_seller" rows="2" class="form-control"
+                        readonly>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <label class="col-sm-12" style="color:Tomato;">Delivered</label>
+                    <div class="col-sm-12">
+                      <input type="text" name="confirm_broker" id="confirm_broker" rows="2" class="form-control"
+                        readonly>
+                    </div>
+                  </div>
+
+                </form>
+      </form>
+
+    </div>
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+
+    </div>
+
+  </div>
+
+  </div>
+  </div>
+
+  <!-- 
+      <div class="row" id="warning" style="display:none">
+        <div class="col-sm-12">
+          <div class="alert alert-danger" role="alert">
+            Success!
+            <ul>
+              <li>Notification sent to broker, wait for confirmation</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+-->
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="/static/vendor/jquery/jquery.min.js"></script>
+  <script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script type="text/javascript" src="/static/vendor/DataTables/js/datatables.min.js"></script>
+  <script src="/static/vendor/DataTables/js/ellipsis.js"></script>
+
+
+  <script>
+    $(function () {
+      $("#deploy").click(function () {
+        $.ajax({
+          url: "/deploy",
+          type: "GET",
+          success: function (response) {
+
+            document.getElementById("warning").style.display = "block";
+          },
+          error: function (error) {
+            console.log(error);
+          }
+        });
+      });
+    })
+
+    $(function () {
+      $("#details").click(function () {
+
+        $.ajax({
+          url: "/retreiveDetails",
+          type: "POST",
+          dataType: 'json',
+          data: $('#transaction_form').serialize(),
+          success: function (response) {
+            document.getElementById("offer_id").value = response["offer_id"];
+
+            document.getElementById("offer_id").value = response["offer_id"];
+            $("#basicModal").modal('show');
+            //document.getElementById("offer_id").value = response["offer_id"];
+            document.getElementById("final_id").value = response["final_id"];
+            document.getElementById("seller_address").value = response["seller_address"];
+            document.getElementById("buyer_address").value = response["buyer_address"];
+            document.getElementById("energy").value = response["energy"];
+            document.getElementById("price").value = response["price"];
+            document.getElementById("offered_time").value = response["offered_time"];
+            document.getElementById("paid_time").value = response["paid_time"];
+            document.getElementById("confirm_buyer").value = response["confirm_buyer"];
+            document.getElementById("confirm_seller").value = response["confirm_seller"];
+            document.getElementById("confirm_broker").value = response["confirm_broker"];
+            //document.getElementById("choose_offer").value = response['offer'];
+
+          },
+          error: function (error) {
+            console.log(error);
+          }
+        });
+      });
+    })
+
+    $(function () {
+      $("#confirm_order").click(function () {
+
+        $.ajax({
+          url: "/delivered",
+          type: "POST",
+          dataType: 'json',
+          data: $('#transaction_form1').serialize(),
+          success: function (response) {
+            document.getElementById("offer_id_a").value = response["offer_id_a"];
+            document.getElementById("warning1").style.display = "block";
+            //document.getElementById("choose_offer").value = response['offer'];
+            document.getElementById("offer_id_a").value = response["offer_id"];
+
+          },
+          error: function (error) {
+            console.log(error);
+          }
+        });
+      });
+    })
+
+  </script>
+
+
+
+</body>
+
+</html>
