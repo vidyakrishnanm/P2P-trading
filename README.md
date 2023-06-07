@@ -10,7 +10,7 @@ Private network implementation (Node 1 in Raspberry Pi):
 4)	Initialize the genesis file. (geth init –datadir node1 genesis.json)
 5)	Run the private network using Geth command (geth --datadir node1 --networkid 1234 --http --allow-insecure-unlock --nodiscover --port 30303 --http.port 8545).
 6)	Open the geth console in another terminal (geth attach node1/geth.ipc)
-For detailed commands follow the link .
+For detailed commands follow (https://geth.ethereum.org/docs/fundamentals/private-network) .
 Repeat the steps for node 2 and 3 in other Raspberry Pi. 
 Note: The genesis file, network Id, http port should be same in all 3 nodes. 
 
@@ -25,7 +25,7 @@ Now the private network is formed.
 Smart contract development and deployment:
 Smart contract is written in solidity, compiled, and tested using Remix initially. 
 To deploy to the private network, we used Brownie – python based smart contract deployment tool.
-1.	Install brownie 
+1.	Install brownie (https://eth-brownie.readthedocs.io/en/stable/)
 2.	To add live network: brownie networks add live private host=http://127.0.0.1:8545 chainid=1234
 3.	To add accounts: brownie accounts load account_name (you will be prompted for private key and password)
 4.	Compile the scripts – brownie compile
@@ -38,5 +38,3 @@ This will connect to the developed private network and accounts and opens the we
 Interaction platform development
 	Interaction platform is developed using python flask and http programming. 
 Web pages are written and coded which is called from the deployment script. All the scripts are added in the templates folder. 
-
-![image](https://github.com/vkm2023/P2P-trading/assets/125570409/6e5cc6cf-9271-48f9-9ef8-aac36b56ca81)
